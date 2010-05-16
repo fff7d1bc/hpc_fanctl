@@ -80,16 +80,17 @@ while true; do
 	get_temp
 
 	# Prevent pulse noise, if fan is on, report +$antipulse'C (longer fan on, longer without fan).
-	if [[ $fan = 'on' ]]; then
+	real_cpu_temp=$cpu_temp
+	if [[ $ap = 'on' ]]; then
 		cpu_temp="$(( $cpu_temp + ${antipulse} ))" 
 	fi
 
-	if [ $cpu_temp -lt $temp1 ]; then fanlevel=0; fan=off;
-	elif [ $cpu_temp -lt $temp2 ]; then fanlevel=1; fan=off;
-	elif [ $cpu_temp -lt $temp3 ]; then fanlevel=2; fan=on;
-	elif [ $cpu_temp -lt $temp4 ]; then fanlevel=3; fan=on;
-	elif [ $cpu_temp -lt $temp5 ]; then fanlevel=4; fan=on;
-	elif [ $cpu_temp -ge $temp5 ]; then fanlevel=5; fan=on;
+	if [ $cpu_temp -lt $temp1 ]; then fanlevel=0; ap=off;
+	elif [ $cpu_temp -lt $temp2 ]; then fanlevel=1; ap=off;
+	elif [ $cpu_temp -lt $temp3 ]; then fanlevel=2; ap=on;
+	elif [ $real_cpu_temp -lt $temp4 ]; then fanlevel=3; ap=off;
+	elif [ $real_cpu_temp -lt $temp5 ]; then fanlevel=4; ap=off;
+	elif [ $real_cpu_temp -ge $temp5 ]; then fanlevel=5; ap=off;
 	fi
 
 	set_fan $fanlevel
