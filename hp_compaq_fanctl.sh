@@ -4,6 +4,7 @@
 # All rights reserved.
 #
 # You need working bash, tee and coretemp (kernel module) to run this script.
+# Designed for hp compaq 6510b and similar.
 #
 ## Big thanks to #bash (mostly for prince_jammys user) at freenode for help with this script.
 
