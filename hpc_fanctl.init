@@ -1,0 +1,18 @@
+#!/sbin/runscript
+
+PID=/var/run/hpc_fanctl.pid
+hpc_fanctl="/root/src/hpc_fanctl/hp_compaq_fanctl.sh"
+
+
+start() {
+	ebegin "Starting HP Compaq fan control daemon"
+	start-stop-daemon --start --quiet --background -m --pidfile ${PID} \
+		--exec $hpc_fanctl
+	eend ${?}
+}
+
+stop() {
+	ebegin "Stopping HP Compaq fan control daemon"
+	start-stop-daemon --stop --pidfile ${PID}
+	eend ${?}
+}
