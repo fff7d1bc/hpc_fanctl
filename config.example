@@ -16,4 +16,5 @@ temp2='49'
 temp3='68'
 temp4='72'
 temp5='76'
-delay="1s" # Play with fan every ...
+interval="1"
+antipulse="2"

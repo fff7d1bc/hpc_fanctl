@@ -69,6 +69,7 @@ case $1 in
 	5)
 		tee ${fanpath[@]:1:5} <<<0 >/dev/null
 	;;
+
 	0)
 		tee ${fanpath[@]:1:5} <<<3 >/dev/null
 	;;
@@ -77,14 +78,20 @@ esac
 
 while true; do
 	get_temp
-	if [ $cpu_temp -lt $temp1 ]; then fanlevel=0;
-	elif [ $cpu_temp -lt $temp2 ]; then fanlevel=1;
-	elif [ $cpu_temp -lt $temp3 ]; then fanlevel=2;
-	elif [ $cpu_temp -lt $temp4 ]; then fanlevel=3;
-	elif [ $cpu_temp -lt $temp5 ]; then fanlevel=4;
-	elif [ $cpu_temp -ge $temp5 ]; then fanlevel=5;
+
+	# Prevent pulse noise, if fan is on, report +$antipulse'C (longer fan on, longer without fan).
+	if [[ $fan = 'on' ]]; then
+		cpu_temp="$(( $cpu_temp + ${antipulse} ))" 
+	fi
+
+	if [ $cpu_temp -lt $temp1 ]; then fanlevel=0; fan=off;
+	elif [ $cpu_temp -lt $temp2 ]; then fanlevel=1; fan=off;
+	elif [ $cpu_temp -lt $temp3 ]; then fanlevel=2; fan=on;
+	elif [ $cpu_temp -lt $temp4 ]; then fanlevel=3; fan=on;
+	elif [ $cpu_temp -lt $temp5 ]; then fanlevel=4; fan=on;
+	elif [ $cpu_temp -ge $temp5 ]; then fanlevel=5; fan=on;
 	fi
 
 	set_fan $fanlevel
-	sleep $delay
+	sleep $interval
 done
