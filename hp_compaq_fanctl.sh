@@ -11,6 +11,16 @@
 ####
 ## config.
 ####
+workdir="$(readlink -f $(dirname $0))"
+if [[ -f "$workdir/config" ]]; then
+	. $workdir/config
+elif [[ -f "/etc/hpc_fanctl.conf" ]]; then
+	. /etc/hpc_fanctl.conf
+else
+	echo "You need config file. Exiting..."
+	exit 1
+fi
+
 fanpath[1]='/proc/acpi/fan/C3C5/state'
 fanpath[2]='/proc/acpi/fan/C3C4/state'
 fanpath[3]='/proc/acpi/fan/C3C3/state'

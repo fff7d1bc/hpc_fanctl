@@ -1,0 +1,19 @@
+# Copy it to $SCRIPTDIR/config (local)
+# or
+# copy it to /etc/hpc_fanctl.conf (global).
+# If there is no local config, script will
+# load config from /etc.
+
+fanpath[1]='/proc/acpi/fan/C3C5/state'
+fanpath[2]='/proc/acpi/fan/C3C4/state'
+fanpath[3]='/proc/acpi/fan/C3C3/state'
+fanpath[4]='/proc/acpi/fan/C3C2/state'
+fanpath[5]='/proc/acpi/fan/C3C1/state'
+
+# Target temperature for each fan level.
+temp1='45'
+temp2='49'
+temp3='68'
+temp4='72'
+temp5='76'
+delay="1s" # Play with fan every ...
