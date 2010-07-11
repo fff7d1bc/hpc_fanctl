@@ -1,7 +1,7 @@
 #!/sbin/runscript
 
 PID=/var/run/hpc_fanctl.pid
-hpc_fanctl="/root/src/hpc_fanctl/hp_compaq_fanctl.sh"
+hpc_fanctl="/usr/sbin/hp_compaq_fanctl.sh"
 nice="-1"
 
 start() {
